@@ -43,7 +43,7 @@ public:
         }
         tmp->next = head;
         head = tmp;
-
+        delete tmp;
     }
     void lzw()
     {
