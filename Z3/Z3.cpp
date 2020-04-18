@@ -138,13 +138,7 @@ int main()
     op t1;
     bool f=0;
     int a = 0;
-    t1.open(1);
-    t1.open(2);
-    t1.open(3);
-    t1.open(2);
-    t1.open(2);
-    t1.open(1);
-    t1.open(2);
+
     while (a != 5)
     {
         cout << "1.Запись" << endl;
