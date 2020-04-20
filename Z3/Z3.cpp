@@ -2,6 +2,43 @@
 #include <fstream>
 
 using namespace std;
+enum class Query
+{
+    ADD,
+    DELETE,
+    outputlzw,
+    outputlzb
+};
+istream& operator >> (istream& is, Query& q)
+{
+    int operation;
+    cout << "1.Запись" << endl;
+    cout << "2.Вывод без сжатия " << endl;
+    cout << "3.Вывод с жатием." << endl;
+    cout << "4.Удалить." << endl;
+    cout << "5.Выход." << endl;
+    cout << "Ваш выбор : "; is >> operation;
+    system("cls");
+    switch (operation)
+    {
+        case 1: {
+            q = Query::ADD;
+            break;
+        }
+        case 2: {
+            q = Query::outputlzb;
+            break; }
+        case 4: {
+            q = Query::DELETE;
+            break;
+        }
+        case 3: {
+            q = Query::outputlzw;
+            break;
+        }
+    }
+    return is;
+}
 class op {
     struct down {
         int arr;
@@ -43,7 +80,7 @@ public:
         }
         tmp->next = head;
         head = tmp;
-        delete tmp;
+        
     }
     void lzw()
     {
@@ -137,48 +174,42 @@ int main()
     setlocale(LC_ALL, "Rus");
     op t1;
     bool f=0;
-    int a = 0;
 
-    while (a != 5)
+    Query q;
+   
+    while (cin >> q)
     {
-        cout << "1.Запись" << endl;
-        cout << "2.Вывод без сжатия " << endl;
-        cout << "3.Вывод с жатием." << endl;
-        cout << "4.Удалить." << endl;
-        cout << "5.Выход." << endl;
-        cout << "Ваш выбор : "; cin >> a;
-        system("cls");
-        switch (a)
+        switch (q)
         {
-        case 1: {
+        case Query::ADD: {
             int b = 0;
             cout << "Новое число списка  = "; cin >> b;
             t1.open(b);
             f = 0;
-            break;
-        }
-        case 2: {    
-            t1.lzb();
-            f = 0;
-            t1.output();
-            break;
-        }
-        case 3: {
-            t1.lzw();
-            f = 1;
-            t1.output();
-            break;
-        }
-        case 4: {
+            break; }
+
+        case Query::DELETE: {
             t1.output();
             int b = 0;
             cout << "Что удалить  = "; cin >> b;
-            t1.dele(b,f);
+            t1.dele(b, f);
             t1.output();
-            break;
+            break; }
+
+        case Query::outputlzb: {
+            t1.lzb();
+            f = 0;
+            t1.output();
+            break; }
+        case Query::outputlzw: {
+            t1.lzw();
+            f = 1;
+            t1.output();
+            break; }
         }
-        }
+
     }
+
     return 0;
 }
 
